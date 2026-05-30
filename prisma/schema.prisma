@@ -3,23 +3,15 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-model Feed {
-  id          Int      @id @default(autoincrement())
-  feed_url    String   @unique
-  title       String
-  articles    Article[]
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model Article {
-  id          Int      @id @default(autoincrement())
-  title       String
-  content     String
-  publishedAt DateTime
-  metadata    Json?    @map("metadata")
-  feed        Feed     @relation(fields: [feedId], references: [id])
-  feedId      Int
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
