@@ -1,15 +1,19 @@
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Todo App',
+  title: 'Next.js Prisma App',
+  description: 'A minimal Next.js 15 app with Prisma.',
 };
 
-export default function RootLayout({children}: {children: React.ReactNode}) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className="bg-gray-900 text-white font-sans min-h-screen">
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
