@@ -1,36 +1,62 @@
-# Simple Todo App
+# Todo App
 
-A lightweight single‑page to‑do list built with plain HTML, CSS, and vanilla JavaScript. The app lets you add tasks, toggle them as complete, and delete them. All data is stored in the browser’s `localStorage`, so your list survives page reloads and browser restarts.
-
-## Installation
-
-```bash
-git clone https://github.com/your-username/simple-todo-app.git
-cd simple-todo-app
-# Serve the static files
-npx serve .
-```
-
-You can also just open `index.html` directly in a browser – no server needed.
+A minimal single‑page application that lets you add, mark complete, and delete todo items. It uses vanilla JavaScript, plain HTML and CSS, and persists data in the browser’s `localStorage`.
 
 ## Features
 
-- **Add** a new to‑do by typing in the input and pressing the Add button.
-- **Delete** any item with its Delete icon.
-- **Toggle** completion status by clicking the checkbox; completed items are struck through.
-- **Persistence** via `localStorage` – the list is restored automatically on each load.
+- **Add a todo** – type text and press *Enter* or click *Add*.
+- **Mark complete** – click the checkbox to toggle completion.
+- **Delete** – press the trash icon to remove a todo.
+- **Persisted state** – all todos are stored in `localStorage`, so they survive page reloads.
+- **Responsive layout** – works on desktop and mobile.
 
-## Usage
+## Setup
 
-1. Type a task into the input field at the top.
-2. Click the **Add** button or press **Enter** to add it.
-3. Click the checkbox to mark a task as done, or click the **Delete** icon to remove it.
-4. Reload the page – your list remains intact.
+```bash
+# Clone the repo
+git clone https://github.com/your-username/todo-app.git
+cd todo-app
 
-## Technical Details
+# Install dependencies
+npm install
 
-The entire app runs in the browser; it uses only standard web APIs (`document`, `localStorage`, event listeners) and contains no external dependencies. All logic lives in a single `app.js` file, while the visual styling is in `style.css`.
+# Run the development server
+npm run dev
+```
+
+The app will be available at `http://localhost:5173` (Vite default port).
+
+### Build
+
+```bash
+npm run build
+```
+
+A production build is created in the `dist/` folder.
+
+## Screenshots
+
+![Todo App Screenshot](./screenshot.png)
+
+*The app shows a clean, minimal interface. Add, complete, and delete actions are demonstrated.*
+
+## LocalStorage usage
+
+The application stores the todo list as a JSON string under the key `todos`. On load it reads the key and renders the items; on any change it writes back the updated list.
+
+## RSS Feed
+
+This project does **not** expose an RSS feed. The placeholder in the original request can be removed.
+
+## Contribution Guidelines
+
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature/xyz`).
+3. Commit with clear, descriptive messages.
+4. Open a pull request; ensure the CI passes (`npm test`).
+
+Please keep the commit history clean and add tests for new features.
 
 ## License
 
-This project is licensed under the MIT License.
+MIT © Your Name

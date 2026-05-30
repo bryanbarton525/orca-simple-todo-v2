@@ -1,91 +1,61 @@
-const STORAGE_KEY = 'todos';
+(function() {
+  const STORAGE_KEY = 'todos';
+  const newTodoInput = document.getElementById('new-todo');
+  const todoList = document.getElementById('todo-list');
 
-const loadTodos = () => {
-  try {
+  function loadTodos() {
     const data = localStorage.getItem(STORAGE_KEY);
-    if (!data) return [];
-    const parsed = JSON.parse(data);
-    if (!Array.isArray(parsed)) throw new Error('Invalid data');
-    return parsed;
-  } catch (e) {
-    console.error('Failed to load todos', e);
-    return [];
+    return data ? JSON.parse(data) : [];
   }
-};
 
-const saveTodos = (todos) => {
-  try {
+  function saveTodos(todos) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
-  } catch (e) {
-    console.error('Failed to save todos', e);
   }
-};
 
-const addTodo = (text) => {
-  const todos = loadTodos();
-  const newTodo = {
-    id: Date.now().toString(),
-    text,
-    completed: false,
-  };
-  todos.push(newTodo);
-  saveTodos(todos);
-  return newTodo;
-};
-
-const toggleTodo = (id) => {
-  const todos = loadTodos();
-  const todo = todos.find((t) => t.id === id);
-  if (!todo) return;
-  todo.completed = !todo.completed;
-  saveTodos(todos);
-};
-
-const deleteTodo = (id) => {
-  let todos = loadTodos();
-  todos = todos.filter((t) => t.id !== id);
-  saveTodos(todos);
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('todo-form');
-  const input = document.getElementById('todo-input');
-  const list = document.getElementById('todo-list');
-
-  const render = () => {
-    const todos = loadTodos();
-    list.innerHTML = '';
-    todos.forEach((todo) => {
+  function renderTodos(todos) {
+    todoList.innerHTML = '';
+    todos.forEach((todo, index) => {
       const li = document.createElement('li');
+      li.className = todo.completed ? 'completed' : '';
       li.textContent = todo.text;
-      li.dataset.id = todo.id;
-      li.classList.toggle('completed', todo.completed);
-      li.addEventListener('click', () => {
-        toggleTodo(todo.id);
-        render();
-      });
+      li.onclick = () => toggleTodo(index);
       const delBtn = document.createElement('button');
-      delBtn.textContent = 'x';
-      delBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        deleteTodo(todo.id);
-        render();
-      });
+      delBtn.textContent = '✕';
+      delBtn.onclick = (e) => { e.stopPropagation(); deleteTodo(index); };
       li.appendChild(delBtn);
-      list.appendChild(li);
+      todoList.appendChild(li);
     });
-  };
+  }
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const text = input.value.trim();
-    if (!text) return;
-    addTodo(text);
-    input.value = '';
-    render();
+  function toggleTodo(index) {
+    const todos = loadTodos();
+    todos[index].completed = !todos[index].completed;
+    saveTodos(todos);
+    renderTodos(todos);
+  }
+
+  function deleteTodo(index) {
+    const todos = loadTodos();
+    todos.splice(index, 1);
+    saveTodos(todos);
+    renderTodos(todos);
+  }
+
+  function addTodo(text) {
+    if (!text.trim()) return;
+    const todos = loadTodos();
+    todos.push({ text, completed: false });
+    saveTodos(todos);
+    renderTodos(todos);
+  }
+
+  newTodoInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      addTodo(newTodoInput.value);
+      newTodoInput.value = '';
+    }
   });
 
-  render();
-});
-
-export { loadTodos, saveTodos, addTodo, toggleTodo, deleteTodo };
+  // init
+  renderTodos(loadTodos());
+})();

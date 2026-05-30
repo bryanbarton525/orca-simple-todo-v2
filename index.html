@@ -1,1 +1,25 @@
-<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>My Tasks</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n  <script defer src=\"app.js\"></script>\n</head>\n<body>\n  <header>\n    <h1>My Tasks</h1>\n  </header>\n  <main>\n    <h2>Todo List</h2>\n    <form id=\"todo-form\">\n      <input type=\"text\" id=\"todo-input\" placeholder=\"New todo\" required>\n      <button type=\"submit\" id=\"add-todo\">Add</button>\n    </form>\n    <section id=\"todos-list\"></section>\n  </main>\n  <footer>\n    <p>© 2024 My Tasks App</p>\n  </footer>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Todo List</h1>
+  <div id="add-todo">
+    <input type="text" id="new-todo" placeholder="New todo" />
+    <select id="new-category">
+      <option value="Work">Work</option>
+      <option value="Personal">Personal</option>
+    </select>
+    <button id="add-btn">Add</button>
+  </div>
+  <div id="filters">
+    <label><input type="checkbox" value="Work" class="filter" checked> Work</label>
+    <label><input type="checkbox" value="Personal" class="filter" checked> Personal</label>
+  </div>
+  <ul id="todo-list"></ul>
+  <script src="script.js"></script>
+</body>
+</html>

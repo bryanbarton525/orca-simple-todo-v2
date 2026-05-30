@@ -1,13 +1,12 @@
 {
-  "name": "simple-todo",
+  "name": "todo-app",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "test": "echo \"OK\" && exit 0"
+    "dev": "vite",
+    "build": "vite build"
   },
-  "dependencies": {},
-  "devDependencies": {},
-  "author": "Bryan Barton",
-  "license": "MIT"
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
 }
