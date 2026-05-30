@@ -1,25 +1,17 @@
-# RSS Feed API
+# Todo App
 
-This repository contains a minimal Next.js API route that fetches and parses RSS feeds.
+A minimal single‑page todo application built with plain HTML, CSS, and vanilla JavaScript. Todos are stored in `localStorage`, so they persist across page reloads.
 
-## Setup
+## How to run
 
-```bash
-# Install dependencies
-npm install
+1. Clone the repository or copy the files into a directory.
+2. Open `index.html` in a web browser (e.g., Chrome, Firefox). No build step is required.
 
-# Run the development server
-npm run dev
-```
+> For a quick local HTTP server (optional, but recommended for some browsers):
+> ```bash
+> npx http-server
+> ```
 
-The API is available at:
+That's it! Add, complete, or delete tasks directly in the UI.
 
-```
-GET /api/rss/[url]
-```
-
-Replace `[url]` with a URL-encoded RSS feed URL, for example:
-
-```
-GET /api/rss/https%3A%2F%2Fexample.com%2Frss.xml
-```
+No external dependencies are required.
