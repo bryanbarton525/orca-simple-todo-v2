@@ -1,9 +1,1 @@
-{
-  "name": "rss-newspaper",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "build": "echo \"build\""
-  },
-  "type": "module"
-}
+{\n  \"name\": \"rss-newspaper\",\n  \"version\": \"0.1.0\",\n  \"type\": \"module\",\n  \"scripts\": {\n    \"start\": \"node lib/rss-service.ts\"\n  }\n}
