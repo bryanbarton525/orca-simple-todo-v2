@@ -1,1 +1,1 @@
-Wrote 5 files: index.html, style.css, script.js, README.md, package.json.
+Wrote 5 files for minimal Next.js app: package.json, tsconfig.json, next.config.ts, app/layout.tsx, app/page.tsx.
