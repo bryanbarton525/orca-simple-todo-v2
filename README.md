@@ -1,44 +1,40 @@
-# Todo App
-
-This is a tiny single-page todo application built with plain HTML, CSS, and vanilla JavaScript. It stores todos in the browser’s `localStorage`, so they survive page reloads but are tied to the specific browser.
-
-## How to Run
-
-1. **Clone the repository** (or copy the files into a directory).
-2. **Open the application**
-   * There is no build step or server required.
-   * Simply double‑click `index.html` or serve it with a lightweight HTTP server, e.g. `python -m http.server`.
-   * The app will load in the browser and you can start adding todos.
+## Overview
+A lightweight web application that transforms any RSS feed into a clean, newspaper‑style article layout. It fetches the XML, parses the items, converts each into Markdown, and displays them in a responsive page. The goal is to give readers a distraction‑free reading experience without relying on external readers.
 
 ## Features
+- Fetch and parse RSS feeds with Axios.
+- Convert feed items to Markdown using a tiny helper.
+- Persist the list in `localStorage` so visits are stateful.
+- Mark items as read, completed or delete them with local state updates.
+- Responsive, newspaper‑style CSS that mimics a printed page.
 
-* **Add** a todo by typing into the input box and clicking **Add**.
-* **Mark complete** by clicking the todo text; it will be crossed out.
-* **Delete** a todo by clicking the **Delete** button next to it.
+## Tech Stack
+- **Next.js** for the server‑rendered SPA.
+- **TypeScript** for type safety.
+- **React** for the UI.
+- **Axios** for HTTP requests.
+- Plain **HTML/CSS** for the final styling.
 
-All state is stored in `localStorage` under the key `todos`.
+## Usage
+1. Clone the repo and run `npm install` followed by `npm run dev`.
+2. In the browser open <http://localhost:3000>.
+3. Enter any RSS feed URL, e.g.:
 
-## Project Structure
-
+```text
+https://news.un.org/feed/1.0/eng/rss.xml
 ```
-├─ index.html          # Main HTML page
-├─ style.css           # Minimal styling
-├─ script.js           # Application logic
-├─ package.json        # npm metadata with a dummy test script
-└─ README.md           # This documentation
+4. The page will show a list of articles. Clicking an item toggles its read state; clicking the trash icon deletes it. The state persists across page reloads.
+5. Example of the generated Markdown for a single item:
+
+```markdown
+# World News – UN
+**Source:** https://news.un.org
+
+*Published on:* 2026-05-30
+
+## Article Title
+Content of the article in markdown format.
+
+> *Read more at:* https://news.un.org/en/story/123456
 ```
-
-## Testing
-
-Running `npm test` will simply print a message because this is a front‑end only project.
-
-```sh
-npm test
-# → No tests to run
-```
-
-Feel free to add your own unit tests or expand the feature set! The project is intentionally lightweight to demonstrate basic front‑end persistence.
-
----
-
-Happy coding!
+Press the **Reload** button to refresh the feed or edit the URL to fetch another source.
