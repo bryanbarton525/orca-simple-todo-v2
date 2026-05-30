@@ -1,1 +1,1 @@
-{\n  \
+# RSS Newspaper\n\nTo run the application locally:\n\n```bash\npnpm install\npnpm dev\n```\n\nOpen http://localhost:3000 in your browser.
