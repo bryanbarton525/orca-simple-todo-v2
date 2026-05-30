@@ -1,13 +1,11 @@
 {
-  "name": "todo-app",
+  "name": "article-transformer",
   "version": "0.1.0",
-  "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "test": "echo \"No tests yet\" && exit 0"
+    "test": "node --test"
   },
   "devDependencies": {
-    "vite": "^5.0.0"
+    "@types/node": "^20.0.0"
   }
 }
