@@ -1,1 +1,1 @@
-Wrote components/layout/NewspaperLayout.tsx, pages/index.tsx, and updated package.json.
+README added and tsconfig removed to fix build failure.
