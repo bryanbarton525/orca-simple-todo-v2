@@ -1,1 +1,13 @@
-# Newsstand\n\nThis is a minimal Next.js application that demonstrates a newsstand UI with an article card, a settings form, and a chat interface.\n\n## Running locally\n\n```bash\nnpm install\nnpm run dev\n```\nOpen [http://localhost:3000](http://localhost:3000) in your browser.\n
+# Todo App
+
+A minimal single‑page Todo application built with plain HTML, CSS, and JavaScript. Todos are stored in the browser’s `localStorage`.
+
+## How to Run
+
+1. Open the `index.html` file in a web browser.  
+   - You can simply double‑click the file or open it via the browser’s `File > Open…` menu.
+
+2. Start adding, completing, and deleting todos.  
+   - The list persists between page reloads thanks to `localStorage`.
+
+No build step or server is required.
