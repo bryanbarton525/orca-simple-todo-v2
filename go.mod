@@ -1,7 +1,8 @@
-module github.com/example/mcp-chat-server
+module github.com/rss-to-newsstand/rss-parser
 
-go 1.21
+go 1.22
 
 require (
-    github.com/gorilla/mux v1.8.1
+    go.uber.org/multierr v1.11.0
+    golang.org/x/net v0.23.0
 )
