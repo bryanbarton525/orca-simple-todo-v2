@@ -1,3 +1,8 @@
-module github.com/example/feedparser
+module github.com/example/tasks
 
-go 1.20
+go 1.22
+
+require (
+	github.com/go-chi/chi/v5 v5.0.11
+	github.com/mattn/go-sqlite3 v1.14.12
+)
