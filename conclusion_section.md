@@ -1,3 +1,11 @@
-## Conclusion
+Conclusion
 
-Building this lightweight todo app with vanilla HTML, CSS, and JavaScript demonstrates how modern browsers can handle stateful interactions without heavy frameworks. By persisting the list in localStorage we preserve user data across sessions, and the simple CRUD API (add, toggle, delete) keeps the codebase minimal while still covering the essential patterns: event delegation, data binding, and DOM manipulation. This exercise also highlights the importance of clean separation between UI and logic: even a tiny app benefits from a clear component layout and a small module for storage abstraction. Next steps for readers are to extend the prototype—introduce a due‑date field, move state into a tiny store module, or migrate to a local IndexedDB backend for larger payloads. You can explore the full implementation, contribute fixes, or propose new features on the GitHub repository at https://github.com/example/todo-app. Join the community discussion on Discord at https://discord.gg/example to share ideas or ask questions.
+This minimal todo app demonstrates how vanilla JavaScript, HTML, and CSS can interact seamlessly with localStorage to provide a lightweight, persistent experience. By keeping the code base small and dependency-free, developers can deploy the project with a single `npm run dev` command and instantly see changes reflected in the browser. For teams exploring orca workflows, the next step is to configure MCP servers and integrate the project into a homelab environment. You can find detailed guidance in the repository’s documentation and the community forum linked below.
+
+1. Clone the repo and navigate to the project root.
+2. Install dependencies with `npm install`.
+3. Start the local dev server using `npm run dev`.
+4. Verify the app renders, adds, completes, and deletes todos.
+5. Set up an MCP server (see go-orca.yaml examples) and enable tool discovery.
+
+Explore further: [Repository Docs](https://github.com/yourorg/rss-todoapp/blob/main/README.md) | [Community Forum](https://forum.orca.example.org).
