@@ -1,0 +1,61 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Feed {
+  id          Int      @id @default(autoincrement())
+  rssUrl      String   @unique
+  lastFetch   DateTime?
+  etag        String?
+  articles    Article[]
+  feedItems   FeedItem[]
+}
+
+model Article {
+  id          Int      @id @default(autoincrement())
+  feedId      Int
+  feed        Feed     @relation(fields: [feedId], references: [id])
+  title       String
+  body        String
+  template    String?
+  pubDate     DateTime
+  @@index([pubDate], name: "idx_article_pub_date")
+}
+
+model FeedItem {
+  id          Int      @id @default(autoincrement())
+  articleId   Int
+  article     Article  @relation(fields: [articleId], references: [id])
+  content     String
+  addedAt     DateTime @default(now())
+}
+
+model Subscriber {
+  id              Int          @id @default(autoincrement())
+  email           String       @unique
+  webhook         String?
+  vapidPublicKey  String?
+  vapidPrivateKey String?
+  preferences     Preference[]
+  pushTokens      PushToken[]
+}
+
+model Preference {
+  id           Int        @id @default(autoincrement())
+  subscriberId Int
+  subscriber   Subscriber @relation(fields: [subscriberId], references: [id])
+  topic        String
+  enabled      Boolean    @default(true)
+}
+
+model PushToken {
+  id           Int          @id @default(autoincrement())
+  subscriberId Int
+  subscriber   Subscriber   @relation(fields: [subscriberId], references: [id])
+  token        String
+}
