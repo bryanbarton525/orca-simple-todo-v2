@@ -1,21 +1,21 @@
 # Todo App
 
-A minimal single-page todo application built with Next.js and vanilla TypeScript. Todos are persisted in `localStorage`.
+A minimal single-page todo application built with Next.js, TypeScript, and Tailwind CSS.
 
-## Getting Started
+## How to run locally
 
-```bash
-# Install dependencies
-npm install
+1. Install dependencies
+   ```bash
+   npm install
+   ```
 
-# Run locally
-npm run dev
-```
+2. Start the development server
+   ```bash
+   npm run dev
+   ```
 
-Open your browser at `http://localhost:3000`.
+3. Open your browser and navigate to `http://localhost:3000`.
 
-## Features
+The app persists todos in the browser's `localStorage`.
 
-- Add, complete, and delete todos
-- Todos persist across page reloads via `localStorage`
-- Dark mode support via CSS variables (toggle by changing `data-theme` on `<body>`)
+Enjoy!
