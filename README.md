@@ -1,5 +1,9 @@
-rss-todoapp is a lightweight single‑page application that aggregates RSS metadata, allowing users to add, complete, and delete items. It is built with Next.js, TypeScript, and the pnpm package manager. The project stores data in browser localStorage so the state persists across reloads.
+# Todo App
 
-To run the app locally, install dependencies with pnpm install and start the dev server with pnpm dev. The dev server will be available at http://localhost:3000. The codebase is organised under pages for routing, components for reusable UI, and lib for business logic. All interactions with localStorage are wrapped in a small utility in utils/storage.ts to isolate side‑effects. The todo list is rendered with React’s useState and useEffect hooks, keeping the implementation concise and easy to maintain.
+## Running locally
 
-Because the app runs purely on the client, there is no serverless function or backend required for the MVP. If you wish to persist data on a server or expose an API, simply add a Next.js API route under pages/api and adjust the storage helper to call it instead of localStorage. Future extensions can add more RSS feeds by editing the src/lib/feeds.ts module and redeploying.
+```bash
+npm run dev
+```
+
+Open the application in your browser at `http://localhost:3000`.
