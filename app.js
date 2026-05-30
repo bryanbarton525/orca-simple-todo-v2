@@ -1,63 +1,12 @@
-const STORAGE_KEY = 'todos';
-
-function loadTodos() {
-  const data = localStorage.getItem(STORAGE_KEY);
-  return data ? JSON.parse(data) : [];
-}
-
-function saveTodos(todos) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
-}
-
-function render() {
-  const list = document.getElementById('todoList');
-  list.innerHTML = '';
-  const todos = loadTodos();
-  todos.forEach((todo, idx) => {
-    const li = document.createElement('li');
-    li.className = todo.completed ? 'completed' : '';
-    const span = document.createElement('span');
-    span.textContent = todo.text;
-    span.style.cursor = 'pointer';
-    span.onclick = () => toggle(idx);
-    const del = document.createElement('button');
-    del.textContent = '✕';
-    del.onclick = () => deleteTodo(idx);
-    li.appendChild(span);
-    li.appendChild(del);
-    list.appendChild(li);
-  });
-}
-
-function addTodo(text) {
-  const todos = loadTodos();
-  todos.push({ text, completed: false });
-  saveTodos(todos);
-  render();
-}
-
-function toggle(idx) {
-  const todos = loadTodos();
-  todos[idx].completed = !todos[idx].completed;
-  saveTodos(todos);
-  render();
-}
-
-function deleteTodo(idx) {
-  const todos = loadTodos();
-  todos.splice(idx, 1);
-  saveTodos(todos);
-  render();
-}
-
-document.getElementById('addForm').addEventListener('submit', e => {
-  e.preventDefault();
-  const input = document.getElementById('newTodo');
-  const text = input.value.trim();
-  if (text) {
-    addTodo(text);
-    input.value = '';
-  }
-});
-
-render();
+const STORAGE_KEY="todos";
+const form=document.getElementById("todo-form");
+const input=document.getElementById("todo-input");
+const list=document.getElementById("todo-list");
+function load(){const data=localStorage.getItem(STORAGE_KEY);return data?JSON.parse(data):[];}
+function save(todos){localStorage.setItem(STORAGE_KEY,JSON.stringify(todos));}
+function render(){const todos=load();list.innerHTML="";todos.forEach((t,i)=>{const li=document.createElement("li");li.className=t.done?"completed":"";
+const span=document.createElement("span");span.textContent=t.text;span.onclick=()=>{t.done=!t.done;save(todos);render();};li.appendChild(span);
+const del=document.createElement("button");del.textContent="Delete";del.onclick=()=>{todos.splice(i,1);save(todos);render();};li.appendChild(del);
+list.appendChild(li);});}
+form.addEventListener("submit",e=>{e.preventDefault();const txt=input.value.trim();if(txt){const todos=load();todos.push({text:txt,done:false});save(todos);render();input.value="";}});
+document.addEventListener("DOMContentLoaded",render);
