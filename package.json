@@ -1,0 +1,1 @@
+{\n  \"name\": \"simple-todo-v2\",\n  \"version\": \"0.1.0\",\n  \"type\": \"module\",\n  \"scripts\": {\n    \"dev\": \"node index.js\",\n    \"test\": \"echo OK\"\n  },\n  \"dependencies\": {}\n}
