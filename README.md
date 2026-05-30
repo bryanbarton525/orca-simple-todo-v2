@@ -1,9 +1,23 @@
 # Todo App
 
-## Running locally
+A minimal single‑page todo application written with vanilla HTML, CSS, and JavaScript.
 
-```bash
-npm run dev
+## Prerequisites
+- Node.js & npm (or pnpm)
+
+## Setup
+```sh
+npm install
 ```
 
-Open the application in your browser at `http://localhost:3000`.
+## Run in Development
+```sh
+npm run dev
+```
+The app will be available at <http://localhost:8080>.
+
+## Build
+This project is static, so the build step is a no‑op. It simply confirms that the `build` script exists.
+```sh
+npm run build
+```
