@@ -1,1 +1,3 @@
-{\n  \
+export default {
+  reactStrictMode: true
+}
