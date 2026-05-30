@@ -1,13 +1,1 @@
-{
-  "name": "simple-todo",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "test": "echo \"OK\" && exit 0"
-  },
-  "dependencies": {},
-  "devDependencies": {},
-  "author": "Bryan Barton",
-  "license": "MIT"
-}
+{\n  \
