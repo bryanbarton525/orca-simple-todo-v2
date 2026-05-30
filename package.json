@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "echo 'build step'"
+    "dev": "http-server . -p 8080",
+    "build": "echo \"Build step - no-op for static assets\""
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
   }
 }
