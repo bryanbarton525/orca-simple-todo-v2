@@ -1,1 +1,1 @@
-{\n  \"name\": \"s3-uploader-service\",\n  \"version\": \"1.0.0\",\n  \"private\": true,\n  \"scripts\": {\n    \"test\": \"jest\"\n  },\n  \"devDependencies\": {\n    \"@types/jest\": \"^29.5.0\",\n    \"jest\": \"^29.6.0\",\n    \"ts-jest\": \"^29.1.0\",\n    \"typescript\": \"^5.2.0\"\n  },\n  \"dependencies\": {\n    \"@aws-sdk/client-s3\": \"^3.407.0\",\n    \"@aws-sdk/s3-request-presigner\": \"^3.407.0\"\n  }\n}\n
+{\n  "name": "todo-app",\n  "version": "1.0.0",\n  "private": true,\n  "scripts": {\n    "start": "node index.js"\n  }\n}
