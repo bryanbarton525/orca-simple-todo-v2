@@ -1,44 +1,24 @@
-import React from "react";
-import { useQuery, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { redirect } from 'next/navigation';
+import { createServerComponentSupabaseClient } from '@supabase/auth-helpers-nextjs';
 
-const queryClient = new QueryClient();
+export default async function AdminPage() {
+  const supabase = createServerComponentSupabaseClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
-// Simulated API call
-const fetchUsers = async () => {
-  const res = await fetch("/api/users");
-  if (!res.ok) throw new Error("Failed to fetch users");
-  return res.json();
-};
-
-const UserList = () => {
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["users"],
-    queryFn: fetchUsers,
-    refetchInterval: 60000,
-  });
-
-  if (isLoading) return <p>Loading users…</p>;
-  if (error) return <p>Error loading users.</p>;
+  if (!user) {
+    redirect('/login');
+    return null;
+  }
 
   return (
-    <ul>
-      {data.map((user: any) => (
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </ul>
-  );
-};
-
-export default function AdminDashboard() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <main style={{ padding: "1rem" }}>
-        <h1>Admin Dashboard</h1>
-        <section>
-          <h2>Users</h2>
-          <UserList />
-        </section>
-      </main>
-    </QueryClientProvider>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+      <nav className="flex space-x-4 mb-6">
+        <a href="/admin/feeds" className="text-blue-600 hover:underline">Feeds</a>
+        <a href="/admin/logs" className="text-blue-600 hover:underline">Logs</a>
+        <a href="/admin/search" className="text-blue-600 hover:underline">Search</a>
+      </nav>
+      <p className="text-gray-700">Select a section from the menu above to manage content.</p>
+    </div>
   );
 }
