@@ -1,1 +1,9 @@
-{\n  "name": "todo-app",\n  "version": "1.0.0",\n  "private": true,\n  "scripts": {\n    "start": "node index.js"\n  }\n}
+{
+  "name": "todo-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "http-server . -p 8080"
+  },
+  "dependencies": {}
+}
