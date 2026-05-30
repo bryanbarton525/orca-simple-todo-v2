@@ -193,3 +193,19 @@ Minimal vanilla JavaScript todo application with HTML/CSS/JS separation and loca
 | 20e13e41 | ops | Install Dependencies | ba383a72, ef2316a2 | Run pnpm install in the workspace. This task has no file outputs — it populates node_modules and creates pnpm-lock.yaml. Ensure pnpm install completes without JSON parse errors — if package.json is invalid, fix it first. |
 | c4674cf8 | writer | Write README | ba383a72 | Produce artifact kind markdown, name README.md. Write a 80–150 word introduction explaining the project is a Next.js starter app. Include quickstart steps: pnpm install and pnpm dev. Mention the stack (Next.js, TypeScript, Tailwind) and that the app is built with the App Router. Keep tone concise and instructional. This file will be used by the Finalizer to synthesize the final delivery. |
 
+---
+
+## Remediation Cycle 8 — Architect
+
+**Current overview:** Minimal vanilla JavaScript todo application with HTML/CSS/JS separation and localStorage persistence. The app consists of a single HTML entrypoint, separate styling and logic files, and a README with local run instructions. No external dependencies beyond the Node toolchain for validation.
+
+### Remediation Tasks
+
+| ID | Specialty | Title | Depends On | Description |
+|---|---|---|---|---|
+| 0473a9fd | writer | Write introduction hook section | - | Produce artifact kind markdown, name introduction_hook.md. Write a 60-90 word hook that introduces RSS-to-newspaper conversion and the value of Go ORCA orchestration. Include one Mermaid diagram (optional) to show workflow personas. No frontmatter; use ## Introduction hook section heading only. |
+| 154506ff | writer | Write context section | - | Produce artifact kind markdown, name context_section.md. Write a 200-250 word section explaining RSS feed limitations and why a newspaper-style frontend helps readers consume content better. Include two code blocks: one for sample RSS XML, one for the resulting HTML newspaper view. No frontmatter; use ## Context section heading only. |
+| 10430390 | writer | Write implementation section | - | Produce artifact kind markdown, name implementation_section.md. Write a 350-450 word section covering Go ORCA persona orchestration, MCP tool access, task graph construction, and implementation validation. Include two Go code blocks: one for go-orca.yaml with tools.mcp config, one for a sample task graph JSON snippet. No frontmatter; use ## Implementation section heading only. |
+| 136405a4 | writer | Write conclusion section | - | Produce artifact kind markdown, name conclusion_section.md. Write a 150-200 word conclusion summarizing lessons learned and next steps for readers. Include a call-to-action linking to docs, GitHub repo, or Discord. No frontmatter; use ## Conclusion section heading only. |
+| 065f9452 | writer | Final Synthesis: consolidate all sections into blog_post.md | - | Produce artifact kind markdown, name blog_post.md. Synthesize introduction_hook.md, context_section.md, implementation_section.md, and conclusion_section.md into a single, cohesive blog post. Use blog-post-template.md as reference for frontmatter (title, description, keywords). Title must be 50-60 characters, description 120-160 characters. Word count target: 800-1000 words. No placeholders, no external artifact references. Ensure all headings are H2/H3 as required. This is the final task in the graph. |
+
