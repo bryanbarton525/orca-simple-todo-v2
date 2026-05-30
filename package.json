@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "echo \"OK\" && exit 0"
+    "test": "echo \"OK\" \u0026\u0026 exit 0"
   },
   "dependencies": {},
   "devDependencies": {},
