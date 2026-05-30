@@ -1,58 +1,65 @@
-(function() {
-  const STORAGE_KEY = 'todos';
-  const form = document.getElementById('todo-form');
-  const input = document.getElementById('new-todo');
-  const list = document.getElementById('todo-list');
+const storageKey = 'todos';
+const todoListEl = document.getElementById('todo-list');
+const newTodoEl = document.getElementById('new-todo');
+const addBtn = document.getElementById('add-btn');
 
-  function loadTodos() {
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
-  }
+function loadTodos() {
+  const data = localStorage.getItem(storageKey);
+  return data ? JSON.parse(data) : [];
+}
 
-  function saveTodos(todos) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
-  }
+function saveTodos(todos) {
+  localStorage.setItem(storageKey, JSON.stringify(todos));
+}
 
-  function render() {
-    const todos = loadTodos();
-    list.innerHTML = '';
-    todos.forEach((todo, index) => {
-      const li = document.createElement('li');
-      li.textContent = todo.text;
-      if (todo.completed) li.classList.add('completed');
-
-      const toggle = document.createElement('button');
-      toggle.textContent = todo.completed ? 'Undo' : 'Done';
-      toggle.onclick = () => {
-        todo.completed = !todo.completed;
-        saveTodos(todos);
-        render();
-      };
-
-      const del = document.createElement('button');
-      del.textContent = 'Delete';
-      del.onclick = () => {
-        todos.splice(index, 1);
-        saveTodos(todos);
-        render();
-      };
-
-      li.appendChild(toggle);
-      li.appendChild(del);
-      list.appendChild(li);
+function renderTodos() {
+  const todos = loadTodos();
+  todoListEl.innerHTML = '';
+  todos.forEach((todo, idx) => {
+    const li = document.createElement('li');
+    li.textContent = todo.text;
+    li.dataset.id = idx;
+    if (todo.completed) li.classList.add('completed');
+    li.addEventListener('click', () => toggleComplete(idx));
+    const delBtn = document.createElement('button');
+    delBtn.textContent = 'Delete';
+    delBtn.className = 'delete-btn';
+    delBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      deleteTodo(idx);
     });
-  }
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const text = input.value.trim();
-    if (!text) return;
-    const todos = loadTodos();
-    todos.push({ text, completed: false });
-    saveTodos(todos);
-    input.value = '';
-    render();
+    li.appendChild(delBtn);
+    todoListEl.appendChild(li);
   });
+}
 
-  render();
-})();
+function addTodo(text) {
+  const todos = loadTodos();
+  todos.push({ text, completed: false });
+  saveTodos(todos);
+  renderTodos();
+}
+
+function toggleComplete(idx) {
+  const todos = loadTodos();
+  todos[idx].completed = !todos[idx].completed;
+  saveTodos(todos);
+  renderTodos();
+}
+
+function deleteTodo(idx) {
+  let todos = loadTodos();
+  todos.splice(idx, 1);
+  saveTodos(todos);
+  renderTodos();
+}
+
+addBtn.addEventListener('click', () => {
+  const text = newTodoEl.value.trim();
+  if (text) {
+    addTodo(text);
+    newTodoEl.value = '';
+  }
+});
+
+document.addEventListener('DOMContentLoaded', renderTodos);
