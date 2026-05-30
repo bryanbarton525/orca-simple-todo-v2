@@ -1,3 +1,1 @@
-# Todo App
-
-Open `index.html` in a browser to use the app. The app stores todos in your browser's localStorage.
+# Newsstand\n\nThis is a minimal Next.js application that demonstrates a newsstand UI with an article card, a settings form, and a chat interface.\n\n## Running locally\n\n```bash\nnpm install\nnpm run dev\n```\nOpen [http://localhost:3000](http://localhost:3000) in your browser.\n
