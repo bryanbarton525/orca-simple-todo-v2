@@ -1,9 +1,16 @@
 {
-  "name": "todo-app",
+  "name": "simple-todo",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "live-server ."
-  }
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"OK\" && exit 0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "Bryan Barton",
+  "license": "MIT"
 }
