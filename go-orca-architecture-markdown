@@ -1,0 +1,129 @@
+## Hook
+Go‑orca is a lightweight orchestration engine that turns declarative workflow specifications into running tasks, but the magic lies in how it maps persona models to execution flows, how it enforces a strict constitution for every project, and how it keeps all those components talking through a well‑defined orchestration layer.
+
+## Context
+Modern CI/CD pipelines and distributed micro‑service orchestration systems often suffer from opaque tooling, brittle configuration, and a lack of clear boundaries between design, implementation, and quality assurance. Go‑orca addresses these pain points by:
+
+* Providing a **model‑centric** routing layer that guarantees the right agent runs the right job.
+* Requiring every repository to declare its **constitution** in a canonical JSON format, ensuring consistent expectations across teams.
+* Offering a **workflow orchestration skill** that turns high‑level task graphs into reproducible, testable pipelines.
+
+These three pillars together create an ecosystem where the entire lifecycle—from intent to delivery—is visible, auditable, and reproducible.
+
+## Body
+### Director Model Routing
+The Director is the brain behind go‑orca’s persona assignment. It decides which model should power the `project_manager`, `architect`, `pod`, `qa`, and other personas based on their responsibilities and the workload’s complexity.
+
+#### Key Rules
+1. **Project Manager** – Must be powered by a model of at least 7 B parameters. Small models such as `llama3.2:1b` produce invalid JSON for the strict constitution contract.
+2. **Architect** – Requires a mid‑to‑large model (≥ 7 B) to generate robust design artifacts and task graphs.
+3. **Pod** and **QA** – These personas must use **tools‑enabled** models to allow runtime tool calls.
+4. **Matriarch** – A mid‑size, tools‑enabled model is preferred.
+5. **Finalizer** – The largest available model, as it must synthesize all artifacts into a final artifact.
+
+```json
+{
+  "persona_models": {
+    "project_manager": "qwen3.5:9b",
+    "architect": "gpt-oss:20b",
+    "pod": "qwen3.5:9b-ttm",
+    "qa": "gpt-oss:20b-ttm",
+    "matriarch": "qwen3.5:9b-ttm",
+    "finalizer": "gpt-oss:20b"
+  }
+}
+```
+
+These rules are encoded in the Director’s configuration file (`prompts/personas/director.md`). When a new workflow is instantiated, the Director consults this mapping, ensuring that every downstream persona has the correct capabilities.
+
+### Project Manager Constitution JSON
+The Project Manager is responsible for translating business requirements into a structured **constitution**. This JSON object is the single source of truth for a project’s scope, acceptance criteria, output medium, and out‑of‑scope items.
+
+#### Schema Highlights
+| Field | Type | Description |
+|---|---|---|
+| `audience` | string | Target readers for the artifact. Example: `"software developers"`. |
+| `acceptance_criteria` | array of strings | List of criteria that must be met for the artifact to be considered complete. |
+| `output_medium` | string | Artifact format (`"blog_post"`, `"markdown"`, etc.). |
+| `out_of_scope` | array of strings | Explicitly states what the artifact will not cover. |
+| `requirements` | object | Contains `functional` and `non_functional` arrays of strings. |
+
+```json
+{
+  "audience": "software developers",
+  "acceptance_criteria": [
+    "All code compiles without errors.",
+    "README explains how to run the application locally.",
+    "All tests pass when executed with npm test."
+  ],
+  "output_medium": "blog_post",
+  "out_of_scope": [
+    "Deployment to production environments.",
+    "Integration with external payment systems."
+  ],
+  "requirements": {
+    "functional": [
+      "Generate a single-page todo app using vanilla JS.",
+      "Persist todos in localStorage."
+    ],
+    "non_functional": [
+      "No runtime dependencies beyond the browser."
+    ]
+  }
+}
+```
+
+The Project Manager’s **output_medium** field directly influences the `artifact_kind` used when the artifact is created. For instance, a `blog_post` medium triggers the blog post renderer, which then generates a Markdown file for publication.
+
+### Workflow Orchestration Skill
+Go‑orca’s core is a **Workflow Orchestration Skill** that transforms a declarative graph into a concrete execution plan. The skill accepts a JSON representation of tasks, dependencies, and environment configuration, then orchestrates the following steps:
+
+1. **Validate** – Runs static checks against the constitution and verifies that all required artifacts are present.
+2. **Plan** – Builds a DAG (directed acyclic graph) where nodes are personas and edges are data dependencies.
+3. **Execute** – Spins up each persona in a sandboxed environment, passing the necessary context and tools.
+4. **Collect** – Aggregates artifacts, runs quality checks, and writes the final artifact to the repository.
+
+Below is a minimal example of a workflow definition that triggers a single `pod` task to build a static website:
+
+```go
+package main
+
+import (
+    "context"
+    "github.com/go-orca/go-orca/pkg/workflow"
+)
+
+func main() {
+    ctx := context.Background()
+    wf, _ := workflow.Load("./workflow.json")
+    err := wf.Execute(ctx)
+    if err != nil {
+        panic(err)
+    }
+}
+```
+
+The `workflow.json` might look like this:
+
+```json
+{
+  "tasks": [
+    {
+      "name": "build-static-site",
+      "persona": "pod",
+      "action": "npm run build",
+      "depends_on": []
+    }
+  ]
+}
+```
+
+When the workflow runs, the orchestration skill creates a sandbox for the `pod`, installs dependencies, executes the build script, and captures the output artifacts in a Git‑tracked directory.
+
+## Conclusion
+Go‑orca’s architecture is deliberately modular. By separating persona model routing, constitution enforcement, and orchestration, it eliminates the ambiguities that plague traditional CI/CD setups. Teams can reason about *who* will run a task, *what* is expected from each artifact, and *how* tasks will be executed—all from a single source of truth.
+
+The result is a reproducible, auditable, and highly maintainable workflow system that scales from small prototype projects to enterprise‑grade pipelines.
+
+## CTA
+Ready to see go‑orca in action? Explore the source code and documentation on GitHub: https://github.com/go-orca/go-orca. For a quick start guide, visit the official docs at https://go-orca.io/docs. Join the community discussion on Discord to share tips and get help from the maintainers.
