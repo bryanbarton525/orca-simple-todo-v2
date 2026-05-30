@@ -1,9 +1,8 @@
 {
   "name": "todo-app",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "echo \"dev\"",
-    "build": "echo \"build\""
+    "build": "echo 'build step'"
   }
 }
