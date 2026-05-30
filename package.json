@@ -1,9 +1,8 @@
 {
-  "name": "rss-feed-api",
+  "name": "todo-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "echo build complete"
+    "build": "echo \"no build needed\""
   }
 }
