@@ -1,1 +1,18 @@
-# Todo App\n\nThis is a minimal single‑page Todo application built with vanilla HTML, CSS, and JavaScript.\n\n## Features\n- Add a new todo item.\n- Mark items as complete or incomplete.\n- Delete items.\n- Persist the todo list in `localStorage`.\n\n## Getting Started\n1. **Clone the repository**:\n   ```bash\n   git clone <repo-url>\n   cd <repo-name>\n   ```\n2. **Open the app locally**:\n   - Open `index.html` in your browser or serve the folder with a static server:\n     ```bash\n     npx serve .\n     ```\n   - The app runs at `http://localhost:5000` by default.\n\n## Development\nThe project contains only static assets, so there is no build step. Edit `index.html`, `style.css`, or `app.js` directly.\n\n## Contributing\n1. Fork the repository.\n2. Create a feature branch: `git checkout -b feature/<name>`.\n3. Commit your changes and push.\n4. Open a pull request.\n\n**Please ensure that new features include tests and that existing tests pass.**\n\n## License\nMIT License.\n
+# Todo App
+
+This is a minimal single‑page Todo application built with Next.js, TypeScript, Tailwind CSS, and Prisma.
+
+## Prerequisites
+
+- Node.js 20.x
+- pnpm
+
+## Setup
+
+```bash
+pnpm install
+pnpm db:push   # creates the SQLite database
+pnpm dev
+```
+
+The app will be available at http://localhost:3000.
