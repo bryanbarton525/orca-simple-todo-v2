@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "scripts": {
-    "test": "echo \"OK\" \u0026\u0026 exit 0"
-  },
+  "scripts": {"test": "echo \"OK\" \u0026\u0026 exit 0"},
   "dependencies": {},
   "devDependencies": {},
   "author": "Bryan Barton",
