@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// PostgreSQL datasource with pgvector extension
+// Ensure your database has the pgvector extension installed
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [pgvector]
+}
+
+model Tenant {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  feeds     Feed[]
+}
+
+model Feed {
+  id          Int      @id @default(autoincrement())
+  tenantId    Int
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  url         String
+  title       String
+  lastFetched DateTime?
+  articles    Article[]
+
+  @@index([tenantId])
+}
+
+model Article {
+  id        Int      @id @default(autoincrement())
+  tenantId  Int
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  feedId    Int
+  feed      Feed     @relation(fields: [feedId], references: [id])
+  title     String
+  summary   String
+  content   String
+  vector    Float[]  @db.PgVector(768)
+  embeddings String
+  pubDate   DateTime
+  createdAt DateTime @default(now())
+  indexedAt DateTime? @updatedAt
+
+  @@index([pubDate])
+  @@index([tenantId])
+}
