@@ -1,53 +1,42 @@
-# rss-newspaper
+# Todo List App
 
-rss-newspaper is a lightweight Next.js application that lets you aggregate and view RSS feeds in a clean, mobile‑friendly layout. All data is stored in the browser’s localStorage, so the app works offline and without any backend.
+A tiny vanilla‑JavaScript todo application that runs entirely in the browser. It stores todos in `localStorage` so the list persists across page reloads.
 
-## Quick start
+## Features
+- Add a todo by typing in the input box and pressing **Enter**.
+- Mark a todo as completed by clicking the checkbox.
+- Delete a todo by clicking the trash icon.
+- Todos are persisted in `localStorage` so they survive page refreshes.
+
+## Setup & Running
+
+The project is a pure static site. No backend is required.
 
 ```bash
-npx create-next-app@latest rss-newspaper --typescript --tailwind
-cd rss-newspaper
-# replace the default pages with the rss‑newspaper code (copy the source into this repo)
+# Install dependencies (for optional build tooling)
 npm install
+
+# Start the development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) and you’ll see the home page.
+Open the address shown in the terminal (usually http://localhost:3000). If you prefer a simple preview, you can also open `index.html` directly in any browser.
 
-## Features
+## Development
 
-- **Add RSS feeds** – submit an RSS URL on the `/feed` page.
-- **View styled articles** – each feed’s latest items are rendered with Tailwind CSS.
-- **Delete feeds** – remove a feed from the list and all its items are removed from localStorage.
-- **Local persistence** – feeds and cached items survive page reloads and work offline.
+- `src/index.html` – the main page.
+- `src/style.css` – styles.
+- `src/app.js` – the only JavaScript file.
 
-## Adding feeds
+The build script (`npm run build`) copies the static assets to the `dist/` folder and minifies the code. It also generates a small `service-worker.js` for offline support.
 
-1. Navigate to `/feed` or click the **Add feed** button.
-2. Paste the RSS URL and click **Save**.
-3. The feed appears on the home page and its items are fetched on load.
+## Usage
 
-## API reference
+1. Type a task and press **Enter**.
+2. Click the checkbox to toggle completion.
+3. Click the trash icon to remove.
+4. Refresh the page – your list will still be there.
 
-| Method | Path | Description |
-|--------|------|-------------|
-| **GET** | `/api/feeds` | Returns the list of all subscribed feeds. |
-| **POST** | `/api/feeds` | Body: `{ url: string }`. Adds a new feed. |
-| **DELETE** | `/api/feeds?name=<name>` | Removes the feed identified by `name`. |
+## Contributing
 
-The API is purely in‑memory and is served by Next.js API routes; it is not intended for production use.
-
-## Troubleshooting
-
-| Problem | Fix |
-|---------|-----|
-| **CORS error** | The app runs on the same origin as the API; if you’re proxying it, make sure the proxy forwards the `Origin` header. |
-| **Feed fetch fails** | Verify the RSS URL is reachable and returns XML. Some providers require HTTPS or a user‑agent header. |
-| **LocalStorage limit exceeded** | Clearing the browser’s site data or switching to a different browser will reset the stored feeds. |
-
-## Further reading
-
-- [Next.js documentation](https://nextjs.org/docs) – learn about pages, API routes, and static generation.
-- [RSS specification](https://validator.w3.org/feed/docs/rss2.html) – understand the XML format expected by the app.
-
-Happy reading! 🎉
+Feel free to fork, open issues, or submit pull requests. All contributions are welcome!
