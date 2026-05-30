@@ -86,3 +86,17 @@ Minimal vanilla JavaScript todo application with HTML/CSS/JS separation and loca
 |---|---|---|---|---|
 | 49477814 | ops | Fix package.json to remove build script | - | Produce artifact kind config, name package.json. Write strict JSON object with fields: {name: "simple-todo", version: "0.1.0", private: true, type: "module", scripts: {test: "echo \"OK\" && exit 0"}, dependencies: {}, devDependencies: {}, author: "Bryan Barton", license: "MIT"}. Remove the build script field entirely. No dev, build, or preview scripts needed for vanilla JS. No comments, no trailing commas. Write to /var/lib/go-orca/workspaces/f3f7da96-3175-4339-b822-a1c8433b4224/package.json. This satisfies npm validation without requiring a build step. |
 
+---
+
+## Remediation Cycle 1 — Architect
+
+**Current overview:** Minimal vanilla JavaScript todo application with HTML/CSS/JS separation and localStorage persistence. The app consists of a single HTML entrypoint, separate styling and logic files, and a README with local run instructions. No external dependencies beyond the Node toolchain for validation.
+
+### Remediation Tasks
+
+| ID | Specialty | Title | Depends On | Description |
+|---|---|---|---|---|
+| f8e1e7e6 | frontend | Fix package.json strict JSON syntax | - | Rewrite /var/lib/go-orca/workspaces/f3f7da96-3175-4339-b822-a1c8433b4224/package.json as strict JSON. Remove every leading comment line (lines starting with // or /*). Do not add prose such as "Contents of updated package.json". The file must parse with json.Unmarshal and start with {. After fixing the file, do not run pnpm install from the shell — the engine will validate via install_dependencies. |
+| 1476e70f | ops | Rewrite package.json as strict JSON | - | Produce artifact kind config, name package.json. Write valid JSON object with fields: {name: "simple-todo", version: "0.1.0", private: true, type: "module", scripts: {dev: "vite", build: "vite build", preview: "vite preview", test: "echo \"OK\" && exit 0"}, dependencies: {}, devDependencies: {}, author: "Bryan Barton", license: "MIT"}. NO comments, NO trailing commas, NO backslash escapes except for JSON string literals. Double-quote all keys and string values. Use strict JSON format that passes pnpm/npm validation. Write file to /var/lib/go-orca/workspaces/f3f7da96-3175-4339-b822-a1c8433b4224/package.json. Verify by reading the file content before completion. |
+| bd76a1bb | ops | Fix package.json to remove build script | - | Produce artifact kind config, name package.json. Write strict JSON object with fields: {name: "simple-todo", version: "0.1.0", private: true, type: "module", scripts: {test: "echo \"OK\" && exit 0"}, dependencies: {}, devDependencies: {}, author: "Bryan Barton", license: "MIT"}. Remove the build script field entirely. No dev, build, or preview scripts needed for vanilla JS. No comments, no trailing commas. Write to /var/lib/go-orca/workspaces/f3f7da96-3175-4339-b822-a1c8433b4224/package.json. This satisfies npm validation without requiring a build step. Validate with json.Unmarshal before completion. |
+
