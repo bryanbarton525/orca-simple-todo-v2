@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Todo App</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Todo App</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Todo List</h1>
-<div id="app">
-<input type="text" id="new-todo" placeholder="Add todo..." autocomplete="off">
-<ul id="todo-list"></ul>
-</div>
-<script src="app.js"></script>
+  <h1>Todo List</h1>
+  <div id="add-todo">
+    <input type="text" id="new-todo" placeholder="New todo" />
+    <select id="new-category">
+      <option value="Work">Work</option>
+      <option value="Personal">Personal</option>
+    </select>
+    <button id="add-btn">Add</button>
+  </div>
+  <div id="filters">
+    <label><input type="checkbox" value="Work" class="filter" checked> Work</label>
+    <label><input type="checkbox" value="Personal" class="filter" checked> Personal</label>
+  </div>
+  <ul id="todo-list"></ul>
+  <script src="script.js"></script>
 </body>
 </html>
