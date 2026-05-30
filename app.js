@@ -1,47 +1,63 @@
-const todoInput = document.getElementById('todo-input');
-const todoList = document.getElementById('todo-list');
-const addForm = document.getElementById('add-form');
+const STORAGE_KEY = 'todos';
 
-let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+function loadTodos() {
+  const data = localStorage.getItem(STORAGE_KEY);
+  return data ? JSON.parse(data) : [];
+}
+
+function saveTodos(todos) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+}
 
 function render() {
-    todoList.innerHTML = '';
-    todos.forEach((todo, index) => {
-        const li = document.createElement('li');
-        li.textContent = todo.text;
-        if (todo.done) li.classList.add('completed');
-        const toggle = document.createElement('button');
-        toggle.textContent = todo.done ? 'Undo' : 'Done';
-        toggle.onclick = () => {
-            todo.done = !todo.done;
-            save();
-            render();
-        };
-        const del = document.createElement('button');
-        del.textContent = 'Delete';
-        del.onclick = () => {
-            todos.splice(index, 1);
-            save();
-            render();
-        };
-        li.appendChild(toggle);
-        li.appendChild(del);
-        todoList.appendChild(li);
-    });
+  const list = document.getElementById('todoList');
+  list.innerHTML = '';
+  const todos = loadTodos();
+  todos.forEach((todo, idx) => {
+    const li = document.createElement('li');
+    li.className = todo.completed ? 'completed' : '';
+    const span = document.createElement('span');
+    span.textContent = todo.text;
+    span.style.cursor = 'pointer';
+    span.onclick = () => toggle(idx);
+    const del = document.createElement('button');
+    del.textContent = '✕';
+    del.onclick = () => deleteTodo(idx);
+    li.appendChild(span);
+    li.appendChild(del);
+    list.appendChild(li);
+  });
 }
 
-function save() {
-    localStorage.setItem('todos', JSON.stringify(todos));
+function addTodo(text) {
+  const todos = loadTodos();
+  todos.push({ text, completed: false });
+  saveTodos(todos);
+  render();
 }
 
-addForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const text = todoInput.value.trim();
-    if (!text) return;
-    todos.push({ text, done: false });
-    save();
-    todoInput.value = '';
-    render();
+function toggle(idx) {
+  const todos = loadTodos();
+  todos[idx].completed = !todos[idx].completed;
+  saveTodos(todos);
+  render();
+}
+
+function deleteTodo(idx) {
+  const todos = loadTodos();
+  todos.splice(idx, 1);
+  saveTodos(todos);
+  render();
+}
+
+document.getElementById('addForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const input = document.getElementById('newTodo');
+  const text = input.value.trim();
+  if (text) {
+    addTodo(text);
+    input.value = '';
+  }
 });
 
 render();
