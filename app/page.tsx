@@ -1,63 +1,47 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
-export default function Home() {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <h1 className="text-3xl font-bold mb-4">Todo List</h1>
-      <div className="w-full max-w-md">
-        <TodoList />
-      </div>
-    </div>
-  );
-}
+export default function Page() {
+  const [loggedIn, setLoggedIn] = useState(false);
 
-function TodoList() {
-  const [todos, setTodos] = React.useState<string[]>([]);
-  const [input, setInput] = React.useState<string>('');
+  useEffect(() => {
+    const logged = localStorage.getItem('loggedIn');
+    setLoggedIn(logged === 'true');
+  }, []);
 
-  const addTodo = () => {
-    if (!input.trim()) return;
-    setTodos([...todos, input.trim()]);
-    setInput('');
+  const toggleLogin = () => {
+    const newState = !loggedIn;
+    setLoggedIn(newState);
+    localStorage.setItem('loggedIn', String(newState));
   };
 
-  const toggleTodo = (index: number) => {
-    setTodos(todos.map((t, i) => (i === index ? `${t} ✅` : t)));
-  };
+  const [url, setUrl] = useState('');
 
-  const deleteTodo = (index: number) => {
-    setTodos(todos.filter((_, i) => i !== index));
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Submit', url);
   };
 
   return (
-    <div>
-      <div className="flex space-x-2 mb-4">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="flex-1 border rounded px-2 py-1"
-          placeholder="New todo"
-        />
-        <button onClick={addTodo} className="bg-blue-500 text-white px-4 py-1 rounded">
-          Add
-        </button>
-      </div>
-      <ul>
-        {todos.map((t, i) => (
-          <li key={i} className="flex items-center space-x-2 mb-2">
+    <main className="p-4">
+      <h1>Welcome to the Todo App</h1>
+      <p>This is a minimal todo application built with vanilla JS (but using React here for simplicity).</p>
+      <button onClick={toggleLogin}>
+        {loggedIn ? 'Log out' : 'Log in'}
+      </button>
+      {loggedIn && (
+        <form onSubmit={submit} className="mt-4">
+          <label>
+            RSS Feed URL:
             <input
-              type="checkbox"
-              checked={t.endsWith('✅')}
-              onChange={() => toggleTodo(i)}
+              type="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              required
             />
-            <span className={t.endsWith('✅') ? 'line-through' : ''}>{t.replace(' ✅', '')}</span>
-            <button onClick={() => deleteTodo(i)} className="text-red-500">
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
+          </label>
+          <button type="submit">Add</button>
+        </form>
+      )}
+    </main>
   );
 }
