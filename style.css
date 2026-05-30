@@ -1,7 +1,18 @@
-body { font-family: Arial, sans-serif; margin: 20px; }
-
-ul { list-style: none; padding: 0; }
-
-li { margin: 5px 0; }
-
-.completed { text-decoration: line-through; color: #777; }
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+#new-todo {
+  width: 70%;
+}
+#add-btn {
+  margin-left: 10px;
+}
+li.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+button.delete-btn {
+  margin-left: 10px;
+  color: red;
+}
