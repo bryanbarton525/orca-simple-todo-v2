@@ -1,47 +1,68 @@
+"use client";
 import { useState, useEffect } from 'react';
 
-export default function Page() {
-  const [loggedIn, setLoggedIn] = useState(false);
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
+
+function TodoApp() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [newTodo, setNewTodo] = useState('');
 
   useEffect(() => {
-    const logged = localStorage.getItem('loggedIn');
-    setLoggedIn(logged === 'true');
+    const stored = localStorage.getItem('todos');
+    if (stored) setTodos(JSON.parse(stored));
   }, []);
 
-  const toggleLogin = () => {
-    const newState = !loggedIn;
-    setLoggedIn(newState);
-    localStorage.setItem('loggedIn', String(newState));
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
+  const addTodo = () => {
+    if (!newTodo.trim()) return;
+    setTodos([...todos, { id: Date.now(), text: newTodo, completed: false }]);
+    setNewTodo('');
   };
 
-  const [url, setUrl] = useState('');
+  const toggleTodo = (id: number) => {
+    setTodos(todos.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
+  };
 
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Submit', url);
+  const deleteTodo = (id: number) => {
+    setTodos(todos.filter(t => t.id !== id));
   };
 
   return (
-    <main className="p-4">
-      <h1>Welcome to the Todo App</h1>
-      <p>This is a minimal todo application built with vanilla JS (but using React here for simplicity).</p>
-      <button onClick={toggleLogin}>
-        {loggedIn ? 'Log out' : 'Log in'}
-      </button>
-      {loggedIn && (
-        <form onSubmit={submit} className="mt-4">
-          <label>
-            RSS Feed URL:
+    <div className="container">
+      <h1>Todo List</h1>
+      <div className="input-group">
+        <input
+          type="text"
+          placeholder="New todo"
+          value={newTodo}
+          onChange={e => setNewTodo(e.target.value)}
+        />
+        <button onClick={addTodo}>Add</button>
+      </div>
+      <ul className="todo-list">
+        {todos.map(todo => (
+          <li key={todo.id} className={todo.completed ? 'completed' : ''}>
             <input
-              type="url"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              required
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() => toggleTodo(todo.id)}
             />
-          </label>
-          <button type="submit">Add</button>
-        </form>
-      )}
-    </main>
+            <span>{todo.text}</span>
+            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
+}
+
+export default function Page() {
+  return <TodoApp />;
 }
