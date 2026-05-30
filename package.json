@@ -3,15 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "test": "echo \"No tests yet\""
+    "dev": "vite",
+    "build": "vite build",
+    "test": "echo \"No tests yet\" && exit 0"
   },
-  "dependencies": {
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "next-scheduler": "latest"
+  "devDependencies": {
+    "vite": "^5.0.0"
   }
 }
