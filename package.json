@@ -1,8 +1,16 @@
 {
-  "name": "minimal-todo",
+  "name": "todo-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "echo \"no build needed\""
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
   }
 }
