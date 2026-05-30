@@ -1,11 +1,1 @@
-# RSS Newspaper
-
-## How to run locally
-
-1. Ensure Node.js (v18+) is installed.
-2. Navigate to the project root.
-3. Run `npm run build` to satisfy the build script.
-4. Serve the `index.html` file with any static file server, e.g. `npx serve .` or `python -m http.server`.
-5. Open `http://localhost:5000` (or the port shown by your server) in a browser.
-
-The app uses `localStorage` to persist todos and does not require a backend. Enjoy!
+# RSS Newspaper\n\nA tiny utility for fetching and parsing RSS feeds using Node's built‑in fetch API.\n\n## Features\n- Fetch RSS XML from any URL\n- Parse title, link, description, and publication date\n- Strip dangerous HTML from descriptions\n- Simple cache stored in `localStorage` (if running in a browser)\n\n## Getting Started\n\n```bash\n# Install (no external dependencies)\nnpm install\n# Run the example\nnode lib/rss-service.ts https://news.ycombinator.com/rss\n```\n\n## Usage in code\n```ts\nimport { fetchFeed, FeedItem } from './lib/rss-service';\n\nasync function main() {\n  const items: FeedItem[] = await fetchFeed('https://news.ycombinator.com/rss');\n  console.log(items);\n}\n\nmain();\n```\n\n## License\nMIT
